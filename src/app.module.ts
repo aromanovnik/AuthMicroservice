@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from '../configuration';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User, UserModule } from './modules';
+import { User, UserModule, AuthModule } from './modules';
 
 @Module({
   imports: [
@@ -35,8 +35,10 @@ import { User, UserModule } from './modules';
         fileSize: 5e6, // 5mb
       },
     }),
+
     // Modules
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
