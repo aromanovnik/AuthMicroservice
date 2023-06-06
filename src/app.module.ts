@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from '../configuration';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './modules';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: process.env.POSTGRES_HOST,
       entityPrefix: process.env.POSTGRES_PREFIX,
       dropSchema: JSON.parse(process.env.PRODUCTION),
+      logger: 'simple-console',
 
       entities: [],
       synchronize: true,
@@ -33,8 +35,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         fileSize: 5e6, // 5mb
       },
     }),
+    // Modules
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}

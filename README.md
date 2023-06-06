@@ -40,3 +40,12 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+
+```bash
+# Generate module
+$ nest g mo modules/[module name]
+$ nest g co modules/[controller name]
+$ nest g s modules/[service name]
+
+```
