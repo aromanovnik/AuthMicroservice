@@ -1,5 +1,5 @@
 ARG NODE_VERSION=18
-ARG SERVER_PORT=3001
+ARG SERVER_PORT=3000
 
 FROM node:$NODE_VERSION-buster as base
 
@@ -22,8 +22,7 @@ WORKDIR /app
 COPY --from=builder /app/dist/ /app/
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/package-lock.json /app/package-lock.json
-# RUN yarn install --production=true
 RUN npm install --omit=dev
 
 EXPOSE $SERVER_PORT
-CMD [ "node", "/app/index.js" ]
+CMD [ "node", "/app/main.js" ]
