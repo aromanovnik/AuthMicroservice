@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from '../configuration';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './modules';
+import { User, UserModule } from './modules';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { UserModule } from './modules';
       dropSchema: JSON.parse(process.env.PRODUCTION),
       logger: 'simple-console',
 
-      entities: [],
+      entities: [User],
       synchronize: true,
     }),
     MulterModule.register({
@@ -41,5 +41,4 @@ import { UserModule } from './modules';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-}
+export class AppModule {}
