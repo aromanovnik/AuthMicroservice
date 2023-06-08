@@ -16,7 +16,7 @@ export class SecretCode {
   id: number;
 
   @Index()
-  @Column({ type: 'int' })
+  @Column({ type: 'int', width: parseInt(process.env.LENGTH_SECRET_CODE, 10) })
   code: number;
 
   @Column({ type: 'datetime' })
