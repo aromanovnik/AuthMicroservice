@@ -5,7 +5,13 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from '../configuration';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User, UserModule, AuthModule } from './modules';
+import {
+  User,
+  UserModule,
+  AuthModule,
+  SecretCodeModule,
+  SecretCode,
+} from './modules';
 
 @Module({
   imports: [
@@ -25,7 +31,7 @@ import { User, UserModule, AuthModule } from './modules';
       dropSchema: JSON.parse(process.env.PRODUCTION),
       logger: 'simple-console',
 
-      entities: [User],
+      entities: [User, SecretCode],
       synchronize: true,
     }),
     MulterModule.register({
@@ -39,6 +45,7 @@ import { User, UserModule, AuthModule } from './modules';
     // Modules
     UserModule,
     AuthModule,
+    SecretCodeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
