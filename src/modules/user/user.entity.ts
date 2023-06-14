@@ -9,6 +9,7 @@ import {
 import { IsDate, IsEmail, IsOptional, IsPhoneNumber } from 'class-validator';
 
 @Entity()
+@Index(['email', 'password'], { unique: true })
 export class User {
   @Index()
   @PrimaryGeneratedColumn()
@@ -56,19 +57,42 @@ export class User {
     nullable: true,
     default: null,
   })
+  @IsOptional()
   @IsPhoneNumber()
   phone: number | null = null;
 
+  @Index()
   @Column({
     type: 'varchar',
     length: 250,
     unique: true,
   })
   @IsEmail()
-  email: boolean;
+  email: string;
 
-  @Column({ default: true })
+  @Column({ type: 'boolean', default: true })
   isActive: boolean;
+
+  @Column({
+    length: 256,
+    type: 'varchar',
+  })
+  password: string;
+
+  @Index()
+  @Column({
+    length: 256,
+    type: 'varchar',
+  })
+  verifyEmailToken: string;
+
+  @Index()
+  @Column({ type: 'boolean', default: false })
+  verifiedEmail: boolean;
+
+  @Index()
+  @Column({ type: 'jsonb' })
+  verifiedEmailsHistory: { date: Date; email: string }[];
 
   @CreateDateColumn()
   created_at: Date;
